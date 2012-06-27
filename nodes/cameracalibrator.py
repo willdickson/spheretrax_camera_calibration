@@ -182,11 +182,12 @@ class OpenCVCalibrationNode(CalibrationNode):
     def __init__(self, *args):
 
         CalibrationNode.__init__(self, *args)
-        cv.NamedWindow("display")
+        self.name = "SphereTrax Camera Calibrator"
+        cv.NamedWindow(self.name)
         self.font = cv.InitFont(cv.CV_FONT_HERSHEY_SIMPLEX, 0.20, 1, thickness = 2)
         #self.button = cv.LoadImage("%s/button.jpg" % roslib.packages.get_pkg_dir(PKG))
-        cv.SetMouseCallback("display", self.on_mouse)
-        cv.CreateTrackbar("scale", "display", 0, 100, self.on_scale)
+        cv.SetMouseCallback(self.name, self.on_mouse)
+        cv.CreateTrackbar("scale", self.name, 0, 100, self.on_scale)
 
     def on_mouse(self, event, x, y, flags, param):
         if event == cv.CV_EVENT_LBUTTONDOWN and self.displaywidth < x:
@@ -228,7 +229,7 @@ class OpenCVCalibrationNode(CalibrationNode):
         x = self.displaywidth
         self.button(cv.GetSubRect(display, (x,180,100,100)), "CALIBRATE", self.c.goodenough)
         self.button(cv.GetSubRect(display, (x,280,100,100)), "SAVE", self.c.calibrated)
-        self.button(cv.GetSubRect(display, (x,380,100,100)), "COMMIT", self.c.calibrated)
+        #self.button(cv.GetSubRect(display, (x,380,100,100)), "COMMIT", self.c.calibrated)
 
     def y(self, i):
         """Set up right-size images"""
@@ -315,7 +316,7 @@ class OpenCVCalibrationNode(CalibrationNode):
         self.show(display)
 
     def show(self, im):
-        cv.ShowImage("display", im)
+        cv.ShowImage(self.name, im)
         if self.waitkey() == ord('s'):
             self.screendump(im)
 
