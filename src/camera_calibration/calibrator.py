@@ -547,7 +547,7 @@ class Calibrator:
         cameracal_dict['cy'] = cy
 
         with open(cameracal_yaml,'w') as f:
-            yaml.dump(cameracal_dict,f)
+            yaml.dump(cameracal_dict,f,default_flow_style=False)
 
         print
         print 'wrote camera calibration parameters'
