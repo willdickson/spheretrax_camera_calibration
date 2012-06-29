@@ -158,16 +158,16 @@ def _get_corners(img, board, refine = True):
 
     ## WBD - modified so that finding chessboard is faster
     ## ---------------------------------------------------------------------------------
-    #(ok, corners) = cv.FindChessboardCorners( 
-    #        mono, 
-    #        (board.n_cols, board.n_rows), 
-    #        cv.CV_CALIB_CB_ADAPTIVE_THRESH | cv.CV_CALIB_CB_NORMALIZE_IMAGE | cv2.CALIB_CB_FAST_CHECK
-    #        )
-    (ok, corners) = cv.FindChessboardCorners(
+    (ok, corners) = cv.FindChessboardCorners( 
             mono, 
-            (board.n_cols, board.n_rows),  
-            cv2.CALIB_CB_FAST_CHECK
+            (board.n_cols, board.n_rows), 
+            cv.CV_CALIB_CB_ADAPTIVE_THRESH | cv.CV_CALIB_CB_NORMALIZE_IMAGE | cv2.CALIB_CB_FAST_CHECK
             )
+    #(ok, corners) = cv.FindChessboardCorners(
+    #        mono, 
+    #        (board.n_cols, board.n_rows),  
+    #        cv2.CALIB_CB_FAST_CHECK
+    #        )
     # ------------------------------------------------------------------------------------
     
     # If any corners are within BORDER pixels of the screen edge, reject the detection by setting ok to false
